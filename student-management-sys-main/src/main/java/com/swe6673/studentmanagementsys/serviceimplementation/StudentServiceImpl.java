@@ -30,6 +30,10 @@ public class StudentServiceImpl implements StudentService {
       @Override
       public void deleteStudentById(Long id) {
 
+            boolean exists  = studentRepository.existsById(id);
+            if (!exists){
+                  throw new RuntimeException("Student not found");
+            }
       }
 
       @Override
