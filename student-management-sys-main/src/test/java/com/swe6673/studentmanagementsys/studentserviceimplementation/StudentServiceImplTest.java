@@ -101,6 +101,7 @@ public class StudentServiceImplTest {
       @Test
       void deleteStudent_ExistingStudent() {
             Long studentId = 1L;
+            when(studentRepository.existsById(studentId)).thenReturn(true);
 
             doNothing().when(studentRepository).deleteById(studentId);
             studentService.deleteStudentById(studentId);

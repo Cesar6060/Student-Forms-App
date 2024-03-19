@@ -19,19 +19,26 @@ public class StudentServiceImpl implements StudentService {
 
       @Override
       public Student saveStudent(Student student) {
-            return null;
+            if (!isValidEmail(student.getEmail())) {
+                  throw new RuntimeException("Invalid email");
+            }
+            return studentRepository.save(student);
       }
 
       @Override
       public Student updateStudent(Student student) {
-            return null;
+            if (student.getId() != null && studentRepository.existsById(student.getId())) {
+                  return studentRepository.save(student);
+            } else {
+                  throw new RuntimeException("Student not found");
+            }
       }
 
       @Override
       public void deleteStudentById(Long id) {
-
-            boolean exists  = studentRepository.existsById(id);
-            if (!exists){
+            if (id != null && studentRepository.existsById(id)) {
+                  studentRepository.deleteById(id);
+            } else {
                   throw new RuntimeException("Student not found");
             }
       }
@@ -51,4 +58,12 @@ public class StudentServiceImpl implements StudentService {
             // TO DO: Implement the search logic here
             return null;
       }
+      private boolean isValidEmail(String email) {
+            if (email == null) {
+                  return false;
+            }
+            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+            return email.matches(emailRegex);
+      }
+
 }

@@ -32,6 +32,7 @@ public class Student {
             super();
             this.firstName = firstName;
             this.lastName = lastName;
+            this.email = email;
 
       }
 
