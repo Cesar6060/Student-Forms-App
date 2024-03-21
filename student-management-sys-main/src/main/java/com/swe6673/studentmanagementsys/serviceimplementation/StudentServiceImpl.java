@@ -64,6 +64,9 @@ public class StudentServiceImpl implements StudentService {
 
       @Override
       public List<Student> searchStudents(String keyword) {
+    	  if (keyword == null) {
+    		  throw new IllegalArgumentException("Query cannot be null");
+    	  }
     	  return studentRepository.findByFirstNameContainingOrLastNameContaining("keyword","keyword");
       }
       
