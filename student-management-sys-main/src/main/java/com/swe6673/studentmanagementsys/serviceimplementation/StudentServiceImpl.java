@@ -3,9 +3,12 @@ package com.swe6673.studentmanagementsys.serviceimplementation;
 import com.swe6673.studentmanagementsys.entity.Student;
 import com.swe6673.studentmanagementsys.repository.StudentRepository;
 import com.swe6673.studentmanagementsys.service.StudentService;
+
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -45,19 +48,25 @@ public class StudentServiceImpl implements StudentService {
 
       @Override
       public List<Student> getAllStudents() {
-            return null;
+          return studentRepository.findAll();
       }
 
       @Override
       public Student getStudentById(Long id) {
-            return null;
+          Student student = studentRepository.getReferenceById(id);
+          if (student != null) {
+    			  return student;
+    	  }
+          else {
+        	  throw new RuntimeException("Student ID does not exist");
+          }
       }
 
       @Override
       public List<Student> searchStudents(String keyword) {
-            // TO DO: Implement the search logic here
-            return null;
+    	  return studentRepository.findByFirstNameContainingOrLastNameContaining("keyword","keyword");
       }
+      
       private boolean isValidEmail(String email) {
             if (email == null) {
                   return false;
