@@ -1,6 +1,7 @@
 package com.swe6673.studentmanagementsys.studentserviceimplementation;
 
 import java.util.List;
+//import java.util.Optional;    // added
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -65,6 +66,7 @@ public class StudentServiceImplTest {
       void updateStudent_ValidChanges() {
             Student existingStudent = new Student("Jane", "Doe", "jane.doe@example.com");
             existingStudent.setId(1L); // Assuming the student has ID 1
+//            when(studentRepository.findById(1L)).thenReturn(Optional.of(existingStudent));      // added
             when(studentRepository.save(any(Student.class))).thenReturn(existingStudent);
 
             Student updatedStudent = new Student("Jane", "Smith", "jane.smith@example.com");
@@ -101,8 +103,8 @@ public class StudentServiceImplTest {
       @Test
       void deleteStudent_ExistingStudent() {
             Long studentId = 1L;
-            when(studentRepository.existsById(studentId)).thenReturn(true);
 
+//             when(studentRepository.existsById(studentId)).thenReturn(true);      // added
             doNothing().when(studentRepository).deleteById(studentId);
             studentService.deleteStudentById(studentId);
 
