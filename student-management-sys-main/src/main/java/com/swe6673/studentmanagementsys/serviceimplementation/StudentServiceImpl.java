@@ -67,7 +67,10 @@ public class StudentServiceImpl implements StudentService {
     	  if (keyword == null) {
     		  throw new IllegalArgumentException("Query cannot be null");
     	  }
-    	  return studentRepository.findByFirstNameContainingOrLastNameContaining("keyword","keyword");
+    	  else {
+    		  List<Student> students = studentRepository.findByFirstNameContainingOrLastNameContaining(keyword, keyword);
+    		  return students;
+    	  }
       }
       
       private boolean isValidEmail(String email) {
